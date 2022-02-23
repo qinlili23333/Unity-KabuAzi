@@ -1,0 +1,27 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "Azi-2.0.moc3",
+		"Textures": [
+			"Azi-2.0.8192/texture_00.png"
+		],
+		"Physics": "Azi-2.0.physics3.json",
+		"DisplayInfo": "Azi-2.0.cdi3.json"
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": [
+				"ParamEyeLOpen",
+				"ParamEyeROpen",
+				"ParamBreath"
+			]
+		}
+	]
+}
