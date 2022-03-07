@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 /**
  * 使用B站api判断主播是否在直播
- * 直播时，使小电视图标闪烁
+ * 直播时，显示小电视图标
  */
 public class BilibiliIconController : MonoBehaviour
 {
