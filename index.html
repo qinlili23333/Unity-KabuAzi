@@ -41,7 +41,7 @@
     const sleep = delay => new Promise((resolve) => setTimeout(resolve, delay))
     const init = async () => {
       if (navigator.serviceWorker && !navigator.serviceWorker.controller) {
-        document.innerHTML = ("安装Service Worker...安装成功后将自动刷新页面");
+        document.body.innerHTML = ("安装Service Worker...安装成功后将自动刷新页面");
         await navigator.serviceWorker.register('./sw.js', { scope: '/' });
         await sleep(3000)
         document.location.reload();
