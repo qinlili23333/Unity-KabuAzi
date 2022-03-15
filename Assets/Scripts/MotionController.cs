@@ -46,17 +46,15 @@ public class MotionController : MonoBehaviour
         animator.SetInteger("motionNum", motionNum);
     }
 
-    // 动画开始播放时调用
-    public void motionStart()
+    // 关闭自动眨眼
+    public void disableBlink()
     {
-        // 关闭自动眨眼
         eyeBlinkControler.enabled = false;
     }
 
-    // 动画结束播放时调用
-    public void motionEnd()
+    // 开启自动眨眼
+    public void enableBlink()
     {
-        // 开启自动眨眼
         eyeBlinkControler.enabled = true;
     }
 
