@@ -15,81 +15,77 @@ public class BilibiliIconController : MonoBehaviour
     public string mid;
 
     // 所检测用户的直播间地址
-    public string streaming_url;
+    public string streamingUrl;
 
     // 检测周期
-    public float test_time;
+    public float testTime;
 
     // 历时
-    private float past_time = 0;
+    private float pastedTime = 0;
 
     // 图片显示
-    private SpriteRenderer sprite_renderer;
+    private SpriteRenderer spriteRenderer;
 
     // 按钮
     public GameObject ButtonOpenStreaming;
-    private Button button_open_streaming;
+    private Button buttonOpenStreaming;
 
     // 标志是否在直播
-    private bool is_streaming = false;
-
-    /// <summary>
-    /// 以下是函数
-    /// </summary>
+    private bool isStreaming = false;
 
     // Start is called before the first frame update
     void Start()
     {
         // 图片显示组件
-        sprite_renderer =
+        spriteRenderer =
             this.GetComponent<SpriteRenderer>();
 
         // 打开网页的按钮组件
-        button_open_streaming =
+        buttonOpenStreaming =
             ButtonOpenStreaming.GetComponent<Button>();
 
         // 正在直播时，启用图片和按钮
-        if (IsStreaming())
+        if (checkIsStreaming())
         {
-            sprite_renderer.enabled = true;
+            spriteRenderer.enabled = true;
 
-            button_open_streaming.enabled = true;
+            buttonOpenStreaming.enabled = true;
         }
         else
         {
-            sprite_renderer.enabled = false;
+            spriteRenderer.enabled = false;
 
-            button_open_streaming.enabled = false;
+            buttonOpenStreaming.enabled = false;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        past_time += Time.deltaTime;
+        pastedTime += Time.deltaTime;
 
         // 周期性检测是否在直播
-        if (past_time > test_time)
+        if (pastedTime > testTime)
         {
-            if (IsStreaming())
+            if (checkIsStreaming())
             {
-                sprite_renderer.enabled = true;
+                spriteRenderer.enabled = true;
 
-                button_open_streaming.enabled = true;
+                buttonOpenStreaming.enabled = true;
             }
             else
             {
-                sprite_renderer.enabled = false;
+                spriteRenderer.enabled = false;
 
-                button_open_streaming.enabled = false;
+                buttonOpenStreaming.enabled = false;
             }
 
-            past_time = 0;
+            pastedTime = 0;
         }
     }
 
     // 检测是否在直播
-    public bool IsStreaming()
+    private bool checkIsStreaming()
     {
         try
         {
@@ -99,18 +95,15 @@ public class BilibiliIconController : MonoBehaviour
                 mid + "?callback=liveXhrDone"
                 );
 
-            // GET请求
             HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create(uri);
             myReq.UserAgent =
                 "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36";
             myReq.Method = "GET";
 
-            // 获取数据
             HttpWebResponse result = (HttpWebResponse)myReq.GetResponse();
             Stream receviceStream = result.GetResponseStream();
             StreamReader readerOfStream = new StreamReader(receviceStream, System.Text.Encoding.GetEncoding("utf-8"));
 
-            // 网页源代码写入strHTML
             string strHTML = readerOfStream.ReadToEnd();
 
             readerOfStream.Close();
@@ -118,19 +111,19 @@ public class BilibiliIconController : MonoBehaviour
             result.Close();
 
             // 判断是否在直播
-            is_streaming = Regex.IsMatch(strHTML, "\"status\":1");
+            isStreaming = Regex.IsMatch(strHTML, "\"status\":1");
         }
         catch
         {
-            is_streaming = false;
+            isStreaming = false;
         }
 
-        return is_streaming;
+        return isStreaming;
     }
 
     // 打开直播网页
-    public void Open_streaming_web()
+    public void openStreamingUrl()
     {
-        Application.OpenURL(streaming_url);
+        Application.OpenURL(streamingUrl);
     }
 }
