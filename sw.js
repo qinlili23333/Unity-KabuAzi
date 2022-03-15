@@ -1,11 +1,16 @@
 var APP_PREFIX = '梓'
-var VERSION = '20220314'
-var VERSION_AZUSA_PATCH_USE = 'No Early Release'
-var AZUSA_PATCH_SKIP_LIST = []
+var VERSION = '20220315'
+var VERSION_AZUSA_PATCH_USE = '20220314'
+var AZUSA_PATCH_SKIP_LIST = [
+    './manifest.json',
+    './icon.jpg',
+    './index.html',
+    './Build/BuildWebRelease.loader.js'
+]
 var CACHE_NAME = APP_PREFIX + VERSION
 var AZUSA_CACHE = APP_PREFIX + VERSION_AZUSA_PATCH_USE
 var URLS = [
-    './index.html',
+    './',
 ]
 self.addEventListener('fetch', event => {
     if (event.request.method == "GET" && (event.request.url.indexOf("http") == 0)) {
