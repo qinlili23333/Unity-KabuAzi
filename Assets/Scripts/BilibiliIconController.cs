@@ -91,7 +91,6 @@ public class BilibiliIconController : MonoBehaviour
     // 检测是否在直播
     public bool IsStreaming()
     {
-        // 防止用户没网而抛出异常
         try
         {
             // API

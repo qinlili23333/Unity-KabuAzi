@@ -5,13 +5,28 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 10,
-		"TotalSegmentCount": 10,
-		"TotalPointCount": 40,
+		"CurveCount": 14,
+		"TotalSegmentCount": 14,
+		"TotalPointCount": 56,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
 	"Curves": [
+		{
+			"Target": "Parameter",
+			"Id": "Param",
+			"Segments": [
+				0,
+				1,
+				1,
+				10,
+				1,
+				20,
+				1,
+				30,
+				1
+			]
+		},
 		{
 			"Target": "Parameter",
 			"Id": "Param3",
@@ -44,17 +59,32 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "Param5",
+			"Segments": [
+				0,
+				1,
+				1,
+				10,
+				1,
+				20,
+				1,
+				30,
+				1
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamMouthForm",
 			"Segments": [
 				0,
-				0.5,
+				-1,
 				1,
 				10,
-				0.5,
+				-1,
 				20,
-				0.5,
+				-1,
 				30,
-				0.5
+				-1
 			]
 		},
 		{
@@ -77,14 +107,14 @@
 			"Id": "ParamBrowRForm",
 			"Segments": [
 				0,
-				0,
+				-1,
 				1,
 				10,
-				0,
+				-1,
 				20,
-				0,
+				-1,
 				30,
-				0
+				-1
 			]
 		},
 		{
@@ -92,14 +122,14 @@
 			"Id": "ParamBrowRY",
 			"Segments": [
 				0,
-				0,
+				-1,
 				1,
 				10,
-				0,
+				-1,
 				20,
-				0,
+				-1,
 				30,
-				0
+				-1
 			]
 		},
 		{
@@ -107,14 +137,14 @@
 			"Id": "ParamBrowLForm",
 			"Segments": [
 				0,
-				0,
+				-1,
 				1,
 				10,
-				0,
+				-1,
 				20,
-				0,
+				-1,
 				30,
-				0
+				-1
 			]
 		},
 		{
@@ -122,6 +152,36 @@
 			"Id": "ParamBrowLY",
 			"Segments": [
 				0,
+				-1,
+				1,
+				10,
+				-1,
+				20,
+				-1,
+				30,
+				-1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeROpen",
+			"Segments": [
+				0,
+				0.6,
+				1,
+				10,
+				0.6,
+				20,
+				0.6,
+				30,
+				0.6
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeRSmile",
+			"Segments": [
+				0,
 				0,
 				1,
 				10,
@@ -134,22 +194,22 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamEyeROpen",
+			"Id": "ParamEyeLOpen",
 			"Segments": [
 				0,
-				1,
+				0.6,
 				1,
 				10,
-				1,
+				0.6,
 				20,
-				1,
+				0.6,
 				30,
-				1
+				0.6
 			]
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamEyeRSmile",
+			"Id": "ParamEyeLSmile",
 			"Segments": [
 				0,
 				0,
