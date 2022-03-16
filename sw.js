@@ -13,7 +13,7 @@ var URLS = [
     './',
 ]
 self.addEventListener('fetch', event => {
-    if (event.request.method == "GET" && (event.request.url.indexOf("http") == 0)) {
+    if (event.request.method == "GET" && (event.request.url.indexOf("http") == 0) && (event.request.url.indexOf("bililive.qinlili.workers.dev") == -1)) {
         event.respondWith(
             caches.open(CACHE_NAME).then(async cache => {
                 return cache.match(event.request).then(response => {
