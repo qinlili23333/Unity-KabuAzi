@@ -35,6 +35,12 @@ public class BilibiliIconController : MonoBehaviour
     // 标志是否在直播
     private bool isStreaming = false;
 
+    void Awake()
+    {
+        Application.targetFrameRate = Screen.currentResolution.refreshRate;
+        Debug.Log(Screen.currentResolution.refreshRate);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -110,7 +116,6 @@ public class BilibiliIconController : MonoBehaviour
 
         // 判断是否在直播
         isStreaming = Regex.IsMatch(strHTML, "\"status\":1");
-
     }
 
     // 打开直播网页
