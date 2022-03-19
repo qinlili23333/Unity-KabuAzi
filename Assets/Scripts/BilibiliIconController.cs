@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
 using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine.UI;
-using UnityEngine.Networking;
 
 /**
  * 使用B站api判断主播是否在直播
@@ -38,39 +36,16 @@ public class BilibiliIconController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(checkIsStreaming());
-    }
+        // 图片显示组件
+        spriteRenderer =
+            this.GetComponent<SpriteRenderer>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!spriteRenderer)
-        {
-            // 图片显示组件
-            spriteRenderer = this.GetComponent<SpriteRenderer>();
+        // 打开网页的按钮组件
+        buttonOpenStreaming =
+            ButtonOpenStreaming.GetComponent<Button>();
 
-            // 启动时先默认开启
-            spriteRenderer.enabled = true;
-        }
-
-        if (!buttonOpenStreaming)
-        {
-            // 打开网页的按钮组件
-            buttonOpenStreaming = ButtonOpenStreaming.GetComponent<Button>();
-
-            buttonOpenStreaming.enabled = true;
-        }
-
-        pastedTime += Time.deltaTime;
-
-        // 周期性检测是否在直播
-        if (pastedTime > testTime)
-        {
-            StartCoroutine(checkIsStreaming());
-            pastedTime = 0;
-        }
-        /*  */
-        if (isStreaming)
+        // 正在直播时，启用图片和按钮
+        if (checkIsStreaming())
         {
             spriteRenderer.enabled = true;
 
@@ -84,33 +59,66 @@ public class BilibiliIconController : MonoBehaviour
         }
     }
 
-    // 检测是否在直播
-    IEnumerator checkIsStreaming()
+    // Update is called once per frame
+    void Update()
     {
-        Uri uri;
-        // API
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        pastedTime += Time.deltaTime;
+
+        // 周期性检测是否在直播
+        if (pastedTime > testTime)
         {
-            uri = new Uri("https://bililive.qinlili.workers.dev/status?uid=" + mid);
+            if (checkIsStreaming())
+            {
+                spriteRenderer.enabled = true;
+
+                buttonOpenStreaming.enabled = true;
+            }
+            else
+            {
+                spriteRenderer.enabled = false;
+
+                buttonOpenStreaming.enabled = false;
+            }
+
+            pastedTime = 0;
         }
-        else
+    }
+
+    // 检测是否在直播
+    private bool checkIsStreaming()
+    {
+        try
         {
-            uri = new Uri(
-                "http://api.live.bilibili.com/bili/living_v2/" + mid + "?callback=liveXhrDone"
-            );
+            // API
+            Uri uri = new Uri(
+                "http://api.live.bilibili.com/bili/living_v2/" +
+                mid + "?callback=liveXhrDone"
+                );
+
+            HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create(uri);
+            myReq.UserAgent =
+                "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36";
+            myReq.Method = "GET";
+
+            HttpWebResponse result = (HttpWebResponse)myReq.GetResponse();
+            Stream receviceStream = result.GetResponseStream();
+            StreamReader readerOfStream = new StreamReader(receviceStream, System.Text.Encoding.GetEncoding("utf-8"));
+
+            string strHTML = readerOfStream.ReadToEnd();
+
+            readerOfStream.Close();
+            receviceStream.Close();
+            result.Close();
+
+            // 判断是否在直播
+            isStreaming = Regex.IsMatch(strHTML, "\"status\":1");
+        }
+        catch
+        {
+            isStreaming = false;
         }
 
-        //UnityWebRequest重写，解决网页支持问题
-        var request = UnityWebRequest.Get(uri);
-        request.downloadHandler = new DownloadHandlerBuffer();
-        yield return request.SendWebRequest();
-        Debug.Log(request.downloadHandler.text);
-        // 网页源代码写入strHTML
-        string strHTML = request.downloadHandler.text;
-
-        // 判断是否在直播
-        isStreaming = Regex.IsMatch(strHTML, "\"status\":1");
-
+        return isStreaming;
     }
 
     // 打开直播网页
