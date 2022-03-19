@@ -1,0 +1,31 @@
+﻿<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/pref_category_general">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/pref_graphics_quality_titles"
+            android:entryValues="@array/pref_graphics_quality_values"
+            android:key="@string/pref_graphics_quality_key"
+            android:title="@string/pref_graphics_quality"
+            android:summary="@string/pref_graphics_quality_summary"/>
+
+        <ListPreference
+            android:defaultValue="30"
+            android:entries="@array/pref_frames_per_second_titles"
+            android:entryValues="@array/pref_frames_per_second_values"
+            android:key="@string/pref_frames_per_second_key"
+            android:title="@string/pref_frames_per_second"
+            android:summary="@string/pref_frames_per_second_summary"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_category_other">
+
+        <Preference
+            android:key="@string/pref_about_key"
+            android:title="@string/pref_about"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

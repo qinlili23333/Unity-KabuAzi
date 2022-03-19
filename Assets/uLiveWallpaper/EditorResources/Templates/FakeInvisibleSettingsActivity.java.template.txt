@@ -1,0 +1,25 @@
+﻿package {{bundleIdentifier}};
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.lostpolygon.unity.livewallpaper.LiveWallpaperUnityFacade;
+
+/**
+ * An invisible Activity that sends an event and closes itself.
+ * Useful if you want to handle the Settings UI in Unity.
+ */
+public class {{wallpaperSettingsActivityName}} extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Send the event
+        LiveWallpaperUnityFacade.getEventsProxy().preferencesActivityTriggered();
+
+        // Just close the Activity
+        finish();
+    }
+}

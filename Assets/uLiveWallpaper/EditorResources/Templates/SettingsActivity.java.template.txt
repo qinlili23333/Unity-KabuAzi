@@ -1,0 +1,78 @@
+﻿package {{bundleIdentifier}};
+
+import android.content.SharedPreferences;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+import android.widget.Toast;
+
+import com.lostpolygon.unity.livewallpaper.LiveWallpaperUnityFacade;
+import com.lostpolygon.unity.livewallpaper.UnityEventsProxy;
+
+/**
+ * Barebones {@code PreferenceActivity} to serve as a starting point.
+ * Uses the default preferences. Notifies C# side about preferences changes.
+ */
+public class {{wallpaperSettingsActivityName}} extends PreferenceActivity {
+    /**
+     * Reference to default {@code SharedPreferences}.
+     */
+    private SharedPreferences mDefaultPreferences;
+
+    /**
+     * Notifies C# side about preferences changes.
+     */
+    private final SharedPreferences.OnSharedPreferenceChangeListener mOnSharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            LiveWallpaperUnityFacade.getEventsProxy().preferenceChanged(key);
+        }
+    };
+
+    @Override
+    @SuppressWarnings("deprecation")
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Load the Preferences
+        addPreferencesFromResource(R.xml.preferences);
+
+        // Show a simple message when About button is clicked
+        Preference button = findPreference(getString(R.string.pref_about_key));
+        button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Toast toast = Toast.makeText({{wallpaperSettingsActivityName}}.this, getString(R.string.pref_about_toast), Toast.LENGTH_LONG);
+                toast.show();
+                return true;
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Notify C# about opening
+        LiveWallpaperUnityFacade.getEventsProxy().preferencesActivityTriggered();
+
+        // Get Preferences and attach preferences change listener
+        mDefaultPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mDefaultPreferences.registerOnSharedPreferenceChangeListener(mOnSharedPreferenceChangeListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Detach preferences change listener
+        mDefaultPreferences.unregisterOnSharedPreferenceChangeListener(mOnSharedPreferenceChangeListener);
+
+        // Close the Activity. This is required because preferences could be changed from Unity,
+        // but values in Activity won't be refreshed. By closing the Activity each time when it goes
+        // into background, we can be sure it'll always have up-to-date values.
+        finish();
+    }
+}

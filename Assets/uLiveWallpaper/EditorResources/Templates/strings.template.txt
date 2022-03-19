@@ -1,0 +1,61 @@
+﻿<resources>
+  <string name="product_name">{{productName}}</string>
+
+{% if wallpaperSettingsActivityType == 'basic' -%}
+  <!-- Strings related to Settings -->
+
+  <string name="title_activity_settings">{{productName}} Settings</string>
+
+  <string name="pref_header">Settings</string>
+  <string name="pref_category_general">General</string>
+  <string name="pref_category_other">Other</string>
+
+  <string name="pref_graphics_quality_key">general_graphics_quality</string>
+  <string name="pref_graphics_quality">Graphics quality</string>
+  <string name="pref_graphics_quality_summary">Choose between presets</string>
+  <string-array name="pref_graphics_quality_titles">
+{% for item in wallpaperSettingsGraphicsQualityTitles -%}
+    <item>{{ item }}</item>
+{% endfor -%}
+  </string-array>
+  <string-array name="pref_graphics_quality_values">
+{% for item in {{wallpaperSettingsGraphicsQualityValues}} -%}
+    <item>{{ item }}</item>
+{% endfor -%}
+  </string-array>
+
+  <string name="pref_frames_per_second_key">general_frames_per_second</string>
+  <string name="pref_frames_per_second">Frames per second</string>
+  <string name="pref_frames_per_second_summary">Bigger values result in smoother visuals, but increased battery consumption</string>
+  <string-array name="pref_frames_per_second_titles">
+    <item>60 FPS</item>
+    <item>55 FPS</item>
+    <item>50 FPS</item>
+    <item>45 FPS</item>
+    <item>40 FPS</item>
+    <item>35 FPS</item>
+    <item>30 FPS</item>
+    <item>25 FPS</item>
+    <item>20 FPS</item>
+    <item>15 FPS</item>
+    <item>10 FPS</item>
+  </string-array>
+  <string-array name="pref_frames_per_second_values">
+    <item>60</item>
+    <item>55</item>
+    <item>50</item>
+    <item>45</item>
+    <item>40</item>
+    <item>35</item>
+    <item>30</item>
+    <item>25</item>
+    <item>20</item>
+    <item>15</item>
+    <item>10</item>
+  </string-array>
+
+  <string name="pref_about_key">other_about</string>
+  <string name="pref_about">About</string>
+  <string name="pref_about_toast">Developed by {{companyName}}</string>
+{% endif -%}
+</resources>

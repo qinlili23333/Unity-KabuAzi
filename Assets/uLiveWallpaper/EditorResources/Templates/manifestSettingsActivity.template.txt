@@ -1,0 +1,22 @@
+﻿        <activity
+            android:name=".{{wallpaperSettingsActivityName}}"
+{% if wallpaperSettingsActivityType == 'invisible' -%}
+            android:label=""
+            android:theme="@android:style/Theme.NoDisplay"
+{% else -%}
+            android:label="@string/title_activity_settings"
+            android:theme="@style/uLiveWallpaper.SettingsDefault"
+{% endif -%}
+            android:excludeFromRecents="true"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+{% if wallpaperLauncherShortcutType == 'openSettings' -%}
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+{% else -%}
+            />
+{% endif -%}

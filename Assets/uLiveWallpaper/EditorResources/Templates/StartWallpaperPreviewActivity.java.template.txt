@@ -1,0 +1,20 @@
+﻿package {{bundleIdentifier}};
+
+import android.app.Activity;
+import android.os.Bundle;
+
+import com.lostpolygon.unity.livewallpaper.LiveWallpaperUtility;
+
+/**
+ * An invisible Activity that opens the wallpaper preview app for current wallpaper,
+ * and then closes itself.
+ */
+public class StartWallpaperPreviewActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        LiveWallpaperUtility.openWallpaperPreview(this, false);
+        finish();
+    }
+}
