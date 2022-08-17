@@ -1,6 +1,6 @@
 var APP_PREFIX = '梓'
-var VERSION = '20220315'
-var VERSION_AZUSA_PATCH_USE = '20220314'
+var VERSION = '20220818'
+var VERSION_AZUSA_PATCH_USE = '20220315'
 var AZUSA_PATCH_SKIP_LIST = [
     './manifest.json',
     './icon.jpg',
@@ -13,6 +13,10 @@ var URLS = [
     './',
 ]
 self.addEventListener('fetch', event => {
+    if (event.request.url.indexOf("unity3d")>0) {
+        event.respondWith(new Response("Fuck You Unity Analytics"));
+        return true;
+    }
     if (event.request.method == "GET" && (event.request.url.indexOf("http") == 0) && (event.request.url.indexOf("bililive.qinlili.workers.dev") == -1)) {
         event.respondWith(
             caches.open(CACHE_NAME).then(async cache => {
